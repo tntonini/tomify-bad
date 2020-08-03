@@ -70,7 +70,7 @@ const CSS = css`
 
   li.library {
     cursor: unset;
-    color: gray;
+    color: #999;
     text-transform: uppercase;
     font-weight: normal;
   }
@@ -89,7 +89,7 @@ const CSS = css`
     }
 
     span {
-      color: gray;
+      color: #999;
       font-weight: 300;
     }
   }
