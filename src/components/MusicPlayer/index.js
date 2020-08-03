@@ -9,7 +9,7 @@ import Playbar from './Playbar'
 const MusicPlayer = () => (
   <div css={CSS}>
     <Topbar />
-    <Sidebar></Sidebar>
+    <Sidebar />
     <Content></Content>
     <Playbar></Playbar>
   </div>
