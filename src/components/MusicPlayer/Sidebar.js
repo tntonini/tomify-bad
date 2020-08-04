@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { css, jsx } from '@emotion/core'
+import Modal from './Modal'
 import logo from '../../img/spotify-white.png'
 
 /**
@@ -15,6 +16,7 @@ const Sidebar = () => {
     }
   })
 
+  const playlistRef = useRef(null)
   const playlists = Object.keys(state.playlists)
 
   return (
@@ -39,6 +41,23 @@ const Sidebar = () => {
         <i className="fa fa-plus-circle" />
         <span>New Playlist</span>
       </li>
+
+      <Modal>
+        <form>
+          <div className="title">New Playlist</div>
+
+          <div className="content-wrap">
+            <input
+              type="text"
+              placeholder="My Playlist"
+              ref={playlistRef}
+              required
+            />
+            <br />
+            <button type="submit">Create</button>
+          </div>
+        </form>
+      </Modal>
     </ul>
   )
 }
@@ -91,6 +110,40 @@ const CSS = css`
     span {
       color: #999;
       font-weight: 300;
+    }
+  }
+
+  form {
+    button {
+      background-color: #2bcc6c;
+      color: white;
+      padding: 12.5px 30px;
+      border-radius: 25px;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .title {
+      margin: 0;
+      margin-bottom: 35px;
+    }
+
+    input {
+      margin-bottom: 20px;
+      height: 35px;
+      padding-left: 8px;
+      font-size: 16px;
+      width: 100%;
+      color: black;
+    }
+
+    .content-wrap {
+      margin: 0px auto;
+      max-width: 250px;
+      text-align: center;
     }
   }
 `
