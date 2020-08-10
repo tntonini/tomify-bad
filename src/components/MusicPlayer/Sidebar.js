@@ -2,6 +2,7 @@
 import React, { useState, useRef } from 'react'
 import { css, jsx } from '@emotion/core'
 import Modal from './Modal'
+import Toast from './Toast'
 import logo from '../../img/spotify-white.png'
 
 /**
@@ -10,14 +11,28 @@ import logo from '../../img/spotify-white.png'
 const Sidebar = () => {
   const [state, setState] = useState({
     currentPlaylist: 'home',
+    modal: false,
     playlists: {
-      home: null,
-      favorites: null
-    }
+      home: new Set(),
+      favorites: new Set()
+    },
+    toast: ''
   })
 
   const playlistRef = useRef(null)
   const playlists = Object.keys(state.playlists)
+
+  const addPlaylist = e => {
+    e.preventDefault()
+    const list = playlistRef.current.value
+
+    setState({
+      ...state,
+      modal: false,
+      playlists: { ...state.playlists, [list]: new Set() },
+      toast: 'Your playlist was created successfully!'
+    })
+  }
 
   return (
     <ul className="Sidebar" css={CSS}>
@@ -37,13 +52,19 @@ const Sidebar = () => {
         </li>
       ))}
 
-      <li className="new-playlist">
+      <li
+        className="new-playlist"
+        onClick={() => setState({ ...state, modal: true })}
+      >
         <i className="fa fa-plus-circle" />
         <span>New Playlist</span>
       </li>
 
-      <Modal>
-        <form>
+      <Modal
+        show={state.modal}
+        close={() => setState({ ...state, modal: false })}
+      >
+        <form onSubmit={addPlaylist}>
           <div className="title">New Playlist</div>
 
           <div className="content-wrap">
@@ -58,6 +79,13 @@ const Sidebar = () => {
           </div>
         </form>
       </Modal>
+
+      <Toast
+        toast={state.toast}
+        close={() => {
+          setState({ ...state, toast: '' })
+        }}
+      />
     </ul>
   )
 }
