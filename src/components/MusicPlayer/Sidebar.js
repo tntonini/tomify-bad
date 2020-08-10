@@ -1,6 +1,8 @@
 /** @jsx jsx */
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { css, jsx } from '@emotion/core'
+import Modal from './Modal'
+import Toast from './Toast'
 import logo from '../../img/spotify-white.png'
 
 /**
@@ -9,13 +11,30 @@ import logo from '../../img/spotify-white.png'
 const Sidebar = () => {
   const [state, setState] = useState({
     currentPlaylist: 'home',
+    modal: false,
     playlists: {
-      home: null,
-      favorites: null
-    }
+      home: new Set(),
+      favorites: new Set()
+    },
+    toast: ''
   })
 
+  const playlistRef = useRef(null)
   const playlists = Object.keys(state.playlists)
+
+  const addPlaylist = e => {
+    e.preventDefault()
+    const list = playlistRef.current.value
+
+    setState({
+      ...state,
+      modal: false,
+      playlists: { ...state.playlists, [list]: new Set() },
+      toast: 'Your playlist was created successfully!'
+    })
+  }
+
+  const handleModal = () => setState({ ...state, modal: !state.modal })
 
   return (
     <ul className="Sidebar" css={CSS}>
@@ -35,10 +54,34 @@ const Sidebar = () => {
         </li>
       ))}
 
-      <li className="new-playlist">
+      <li className="new-playlist" onClick={handleModal}>
         <i className="fa fa-plus-circle" />
         <span>New Playlist</span>
       </li>
+
+      <Modal show={state.modal} close={handleModal}>
+        <form onSubmit={addPlaylist}>
+          <div className="title">New Playlist</div>
+
+          <div className="content-wrap">
+            <input
+              type="text"
+              placeholder="My Playlist"
+              ref={playlistRef}
+              required
+            />
+            <br />
+            <button type="submit">Create</button>
+          </div>
+        </form>
+      </Modal>
+
+      <Toast
+        toast={state.toast}
+        close={() => {
+          setState({ ...state, toast: '' })
+        }}
+      />
     </ul>
   )
 }
@@ -91,6 +134,40 @@ const CSS = css`
     span {
       color: #999;
       font-weight: 300;
+    }
+  }
+
+  form {
+    button {
+      background-color: #2bcc6c;
+      color: white;
+      padding: 12.5px 30px;
+      border-radius: 25px;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .title {
+      margin: 0;
+      margin-bottom: 35px;
+    }
+
+    input {
+      margin-bottom: 20px;
+      height: 35px;
+      padding-left: 8px;
+      font-size: 16px;
+      width: 100%;
+      color: black;
+    }
+
+    .content-wrap {
+      margin: 0px auto;
+      max-width: 250px;
+      text-align: center;
     }
   }
 `
