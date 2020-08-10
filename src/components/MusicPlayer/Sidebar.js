@@ -34,6 +34,8 @@ const Sidebar = () => {
     })
   }
 
+  const handleModal = () => setState({ ...state, modal: !state.modal })
+
   return (
     <ul className="Sidebar" css={CSS}>
       <img src={logo} />
@@ -52,18 +54,12 @@ const Sidebar = () => {
         </li>
       ))}
 
-      <li
-        className="new-playlist"
-        onClick={() => setState({ ...state, modal: true })}
-      >
+      <li className="new-playlist" onClick={handleModal}>
         <i className="fa fa-plus-circle" />
         <span>New Playlist</span>
       </li>
 
-      <Modal
-        show={state.modal}
-        close={() => setState({ ...state, modal: false })}
-      >
+      <Modal show={state.modal} close={handleModal}>
         <form onSubmit={addPlaylist}>
           <div className="title">New Playlist</div>
 
