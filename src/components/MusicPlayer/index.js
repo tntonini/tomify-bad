@@ -1,18 +1,22 @@
 /** @jsx jsx */
-import React from 'react'
+import React, { createContext } from 'react'
 import { css, jsx } from '@emotion/core'
 import Topbar from './Topbar'
 import Sidebar from './Sidebar'
 import Content from './Content'
 import Playbar from './Playbar'
 
+export const StoreContext = createContext(null)
+
 const MusicPlayer = () => (
-  <div css={CSS}>
-    <Topbar />
-    <Sidebar />
-    <Content></Content>
-    <Playbar></Playbar>
-  </div>
+  <StoreContext.Provider>
+    <div css={CSS}>
+      <Topbar />
+      <Sidebar />
+      <Content></Content>
+      <Playbar></Playbar>
+    </div>
+  </StoreContext.Provider>
 )
 
 const CSS = css`
