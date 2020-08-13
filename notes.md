@@ -74,3 +74,24 @@ We are almost done, but still need to dispatch actions to the global store in or
 ```
 { type: 'ADD_PLAYLIST', playlist: 'My Playlist' } }
 ```
+
+But how does the state update if our reducer doesn't know how to respond to the messages?
+
+## Finishing The Reducer
+
+All we need to do is add some basic logic to our reducer to handle two actions for now:
+
+- Setting a current playlist
+- Adding a playlist
+- _We will delete a playlist at the beginning of next video_
+
+Let's add a switch statement to our reducer that responds to what text is sent in the actions _type_ property. We will name our two cases:
+
+- 'SET_PLAYLIST'
+- 'ADD_PLAYLIST'
+
+Each one of these cases will just perform a simple state update, and then we are done!
+
+## Next Steps
+
+We will implement the ability to remove a playlist at the beginning of the next video, and import some real audio files into the app so we can start displaying song data inside of our playlists.
