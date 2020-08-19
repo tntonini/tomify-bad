@@ -24,4 +24,4 @@ If you are coming from the YouTube tutorials, here are the videos broken out by 
 
 - Part 4
     - Video Coming Soon...
-    - [Branch](https://github.com/DZuz14/react-spotify/tree/part-3)
+    - [Branch](https://github.com/DZuz14/react-spotify/tree/part-4)
