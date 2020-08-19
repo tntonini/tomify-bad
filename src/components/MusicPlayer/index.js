@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { createContext } from 'react'
+import React, { createContext, useReducer } from 'react'
 import { css, jsx } from '@emotion/core'
 import Topbar from './Topbar'
 import Sidebar from './Sidebar'
@@ -8,16 +8,44 @@ import Playbar from './Playbar'
 
 export const StoreContext = createContext(null)
 
-const MusicPlayer = () => (
-  <StoreContext.Provider>
-    <div css={CSS}>
-      <Topbar />
-      <Sidebar />
-      <Content></Content>
-      <Playbar></Playbar>
-    </div>
-  </StoreContext.Provider>
-)
+const DEFAULT_PLAYLIST = 'home'
+
+const initialState = {
+  currentPlaylist: DEFAULT_PLAYLIST,
+  playlists: {
+    home: new Set(),
+    favorites: new Set()
+  }
+}
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD_PLAYLIST':
+      return {
+        ...state,
+        playlists: { ...state.playlists, [action.playlist]: new Set() }
+      }
+    case 'SET_PLAYLIST':
+      return { ...state, currentPlaylist: action.playlist }
+  }
+
+  return state
+}
+
+const MusicPlayer = () => {
+  const [state, dispatch] = useReducer(reducer, initialState)
+
+  return (
+    <StoreContext.Provider value={{ state, dispatch }}>
+      <div css={CSS}>
+        <Topbar />
+        <Sidebar />
+        <Content></Content>
+        <Playbar></Playbar>
+      </div>
+    </StoreContext.Provider>
+  )
+}
 
 const CSS = css`
   height: 100%;

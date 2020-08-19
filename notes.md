@@ -65,7 +65,7 @@ Let's go back into Sidebar and remove the properties from state that we moved to
 const { state, dispatch } = useContext(StoreContext);
 ```
 
-From here, it's as easy as updating any state related logic to work with the dispatch function. The dispatch function sends messages, so we need to create those messages, which are just basic objects.
+There is a small problem though, this state variable will now cause a collision with the local variable called "state" in Sidebar. Let's comment out any functions that have anything to do with state to get a handle on things. We will hop back to this soon.
 
 ## Dispatching Actions
 
