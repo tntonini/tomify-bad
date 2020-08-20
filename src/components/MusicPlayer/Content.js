@@ -5,35 +5,40 @@ import { StoreContext } from './index'
 
 const Content = () => {
   const { state } = useContext(StoreContext)
-  const songIds = state.media.ids
+  const currentPlaylist = state.currentPlaylist
+  const songIds = Array.from(state.playlists[currentPlaylist])
 
   return (
     <div className="Content" css={CSS}>
-      {state.currentPlaylist}
+      <div className="playlist-title">{currentPlaylist}</div>
 
-      <table>
-        <thead>
-          <tr>
-            <td> Title</td>
-            <td>Artist</td>
-            <td>Length</td>
-          </tr>
-        </thead>
+      {songIds.length <= 0 ? (
+        <p>Your playlist is empty. Start by adding some songs!</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <td> Title</td>
+              <td>Artist</td>
+              <td>Length</td>
+            </tr>
+          </thead>
 
-        <tbody>
-          {songIds.map(id => {
-            const { title, artist, length } = state.media[id]
+          <tbody>
+            {songIds.map(id => {
+              const { title, artist, length } = state.media[id]
 
-            return (
-              <tr key={id}>
-                <td>{title}</td>
-                <td>{artist}</td>
-                <td>{length}</td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+              return (
+                <tr key={id}>
+                  <td>{title}</td>
+                  <td>{artist}</td>
+                  <td>{length}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      )}
     </div>
   )
 }
@@ -53,6 +58,25 @@ const CSS = css`
 
   ::-webkit-scrollbar-thumb {
     background: #282828;
+  }
+
+  .playlist-title {
+    font-size: 20px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 15px;
+    font-size: initial;
+  }
+
+  table tr:not(:last-of-type) {
+    border-bottom: 1px solid #282828;
+  }
+
+  table td {
+    padding: 10px 0;
   }
 `
 

@@ -10,7 +10,7 @@ Best way to get the files is via the repository and download as a ZIP file.
 
 ### Media.json
 
-Put this file in the src/ folder and import it into the initialState of the reducer.
+Put this file in the src/ folder and import it into the initialState of the reducer. Make sure to put media.ids as an initial argument.
 
 ### Audio Files
 
@@ -22,10 +22,4 @@ Let's refactor Content to not have children first. Also update index.js file to 
 
 ### Map All Songs From JSON File
 
-Let's see if we can start displaying our songs from the JSON file. Let's create a table, and produce a row for song we have.
-
-### Refactor CSS
-
-- Move CSS to be outside of component.
-- Remove 20px font size.
-- overflow y of scroll
+See if we can start displaying our songs from the JSON file. Let's create a table, and produce a row for each song we have. We need to convert the Set to an array to map through it. We also want to show some help text if we found no songs in the playlist.
