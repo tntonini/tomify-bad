@@ -46,6 +46,14 @@ const CSS = css`
   padding-top: 70px;
   text-transform: capitalize;
   overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #282828;
+  }
 `
 
 export default Content
