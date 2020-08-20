@@ -42,7 +42,7 @@ const MusicPlayer = () => {
       <div css={CSS}>
         <Topbar />
         <Sidebar />
-        <Content></Content>
+        <Content />
         <Playbar></Playbar>
       </div>
     </StoreContext.Provider>

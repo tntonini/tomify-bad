@@ -1,20 +1,31 @@
 # Part 5: Adding Media Files
 
-This is where things get interesting. We are going to "import" a bunch of media files by using real audio files and a master JSON file media.json.
+The fun starts here.
 
-## Go To Part 5 Repository
+## Go To Part 5 Repository Branch
 
-Best way to do this is just download the repo as a zip probably.
+Best way to get the files is via the repository and download as a ZIP file.
 
-We need to:
+- https://github.com/DZuz14/react-spotify
 
-- Grab the media.json contents
-- Download the audio files
+### Media.json
 
-## Media.json
+Put this file in the src/ folder and import it into the initialState of the reducer.
 
-Put this file in the src/ folder and import it into the initialState of the reducer
+### Audio Files
 
-## Audio Files
+Put the entire media folder inside the dist/ folder.
 
-Put the entire folder inside the dist folder.
+## Content Component
+
+Let's refactor Content to not have children first. Also update index.js file to have self closing tag.
+
+### Map All Songs From JSON File
+
+Let's see if we can start displaying our songs from the JSON file. Let's create a table, and produce a row for song we have.
+
+### Refactor CSS
+
+- Move CSS to be outside of component.
+- Remove 20px font size.
+- overflow y of scroll
