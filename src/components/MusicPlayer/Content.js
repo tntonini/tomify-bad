@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/core'
 import { StoreContext } from './index'
 
 const Content = () => {
-  const { state } = useContext(StoreContext)
+  const { state, dispatch } = useContext(StoreContext)
   const currentPlaylist = state.currentPlaylist
   const songIds = Array.from(state.playlists[currentPlaylist])
 
@@ -18,6 +18,7 @@ const Content = () => {
         <table>
           <thead>
             <tr>
+              <td />
               <td> Title</td>
               <td>Artist</td>
               <td>Length</td>
@@ -27,9 +28,27 @@ const Content = () => {
           <tbody>
             {songIds.map(id => {
               const { title, artist, length } = state.media[id]
+              const isFavorite = state.playlists.favorites.has(id)
 
               return (
                 <tr key={id}>
+                  <td>
+                    {isFavorite ? (
+                      <i
+                        className="fa fa-heart"
+                        onClick={() =>
+                          dispatch({ type: 'REMOVE_FAVORITE', songId: id })
+                        }
+                      />
+                    ) : (
+                      <i
+                        className="fa fa-heart-o"
+                        onClick={() =>
+                          dispatch({ type: 'ADD_FAVORITE', songId: id })
+                        }
+                      />
+                    )}
+                  </td>
                   <td>{title}</td>
                   <td>{artist}</td>
                   <td>{length}</td>
@@ -77,6 +96,10 @@ const CSS = css`
 
   table td {
     padding: 10px 0;
+  }
+
+  i {
+    cursor: pointer;
   }
 `
 
