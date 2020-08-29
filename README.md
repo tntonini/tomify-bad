@@ -31,5 +31,5 @@ If you are coming from the YouTube tutorials, here are the videos broken out by 
     - [Branch](https://github.com/DZuz14/react-spotify/tree/part-5)
 
 - Part 6
-    - Video coming soon...
+    - [Video](https://www.youtube.com/watch?v=kQ3rgNGkBdo)
     - [Branch](https://github.com/DZuz14/react-spotify/tree/part-6)
