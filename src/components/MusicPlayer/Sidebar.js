@@ -6,9 +6,6 @@ import Modal from './Modal'
 import Toast from './Toast'
 import logo from '../../img/spotify-white.png'
 
-/**
- * @function Sidebar
- */
 const Sidebar = () => {
   const [sidebarState, setState] = useState({
     modal: false,

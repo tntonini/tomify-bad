@@ -1,10 +1,14 @@
 /** @jsx jsx */
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { css, jsx } from '@emotion/core'
 import { StoreContext } from './index'
 
+import Favorite from './Favorite'
+import Play from './Play'
+
 const Content = () => {
   const { state, dispatch } = useContext(StoreContext)
+  const [playVisibleId, setPlayVisibleId] = useState(false)
   const currentPlaylist = state.currentPlaylist
   const songIds = Array.from(state.playlists[currentPlaylist])
 
@@ -13,13 +17,15 @@ const Content = () => {
       <div className="playlist-title">{currentPlaylist}</div>
 
       {songIds.length <= 0 ? (
-        <p>Your playlist is empty. Start by adding some songs!</p>
+        <p style={{ marginTop: 10 }}>
+          Your playlist is empty. Start by adding some songs!
+        </p>
       ) : (
         <table>
           <thead>
             <tr>
               <td />
-              <td> Title</td>
+              <td>Title</td>
               <td>Artist</td>
               <td>Length</td>
             </tr>
@@ -32,22 +38,27 @@ const Content = () => {
 
               return (
                 <tr key={id}>
-                  <td>
-                    {isFavorite ? (
-                      <i
-                        className="fa fa-heart"
-                        onClick={() =>
-                          dispatch({ type: 'REMOVE_FAVORITE', songId: id })
-                        }
-                      />
-                    ) : (
-                      <i
-                        className="fa fa-heart-o"
-                        onClick={() =>
-                          dispatch({ type: 'ADD_FAVORITE', songId: id })
-                        }
+                  <td
+                    onMouseEnter={() => setPlayVisibleId(id)}
+                    onMouseLeave={() => setPlayVisibleId('')}
+                    style={{ width: 75, paddingLeft: 5 }}
+                  >
+                    {playVisibleId === id && (
+                      <Play
+                        dispatch={dispatch}
+                        playing={state.playing}
+                        songId={id}
+                        isCurrentSong={state.currentSongId === id}
                       />
                     )}
+
+                    <span style={{ marginRight: 10 }} />
+
+                    <Favorite
+                      isFavorite={isFavorite}
+                      songId={id}
+                      dispatch={dispatch}
+                    />
                   </td>
                   <td>{title}</td>
                   <td>{artist}</td>

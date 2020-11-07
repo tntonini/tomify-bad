@@ -15,9 +15,7 @@ const Toast = ({ toast, close }) => {
 
     closeToast()
 
-    return () => {
-      clearTimeout(closeToast)
-    }
+    return () => clearTimeout(closeToast)
   }, [toast])
 
   if (!toast) return null
