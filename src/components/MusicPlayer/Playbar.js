@@ -7,6 +7,10 @@ const Playbar = () => {
   const { state, dispatch } = useContext(StoreContext)
   const song = state.media[state.currentSongId]
 
+  const setVolume = e => {
+    dispatch({ type: 'SET_VOLUME', volume: e.target.value })
+  }
+
   return (
     <div className="Playbar" css={CSS}>
       <div>
@@ -33,7 +37,17 @@ const Playbar = () => {
       </div>
 
       <div>
-        <i className="fa fa-volume-up" />
+        <i className={`fa fa-volume-${state.volume === 0 ? 'off' : 'up'}`} />
+
+        <input
+          type="range"
+          min="0"
+          max="1"
+          value={state.volume}
+          step="0.01"
+          style={{ marginLeft: 10 }}
+          onChange={setVolume}
+        />
       </div>
     </div>
   )
@@ -61,6 +75,12 @@ const CSS = css`
     align-items: center;
     justify-content: center;
     cursor: pointer;
+  }
+
+  .fa-play,
+  .fa-volume-up,
+  .fa-volume-off {
+    font-size: 20px;
   }
 `
 

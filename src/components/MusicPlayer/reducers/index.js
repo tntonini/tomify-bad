@@ -1,17 +1,19 @@
 import media from '../../../media.json'
 
 const DEFAULT_PLAYLIST = 'home'
+const DEFAULT_VOLUME = 0.65
 
 export const initialState = {
-  media,
-  currentPlaylist: DEFAULT_PLAYLIST,
-  currentSongId: '',
-  playing: false,
-  playlists: {
-    home: new Set(media.ids),
-    favorites: new Set()
-  }
-}
+         media,
+         currentPlaylist: DEFAULT_PLAYLIST,
+         currentSongId: '',
+         playing: false,
+         playlists: {
+           home: new Set(media.ids),
+           favorites: new Set()
+         },
+         volume: DEFAULT_VOLUME
+       }
 
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -36,6 +38,8 @@ export const reducer = (state, action) => {
       return { ...state }
     case 'SET_PLAYLIST':
       return { ...state, currentPlaylist: action.playlist }
+    case 'SET_VOLUME':
+      return { ...state, volume: parseFloat(action.volume) }
   }
 
   return state
