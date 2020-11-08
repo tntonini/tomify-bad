@@ -33,11 +33,14 @@ const Playbar = () => {
             : dispatch({ type: 'PLAY' })
         }}
       >
-        <i className={`fa fa-${state.playing ? 'pause' : 'play'}`} />
+        <i
+          className={`fa fa-${state.playing ? 'pause' : 'play'}`}
+          style={{ transform: state.playing ? '' : 'translateX(1.5px)' }}
+        />
       </div>
 
       <div>
-        <i className={`fa fa-volume-${state.volume === 0 ? 'off' : 'up'}`} />
+        <i className="fa fa-volume-up" />
 
         <input
           type="range"

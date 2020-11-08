@@ -43,14 +43,13 @@ const Content = () => {
                     onMouseLeave={() => setPlayVisibleId('')}
                     style={{ width: 75, paddingLeft: 5 }}
                   >
-                    {playVisibleId === id && (
-                      <Play
-                        dispatch={dispatch}
-                        playing={state.playing}
-                        songId={id}
-                        isCurrentSong={state.currentSongId === id}
-                      />
-                    )}
+                    <Play
+                      dispatch={dispatch}
+                      playing={state.playing}
+                      songId={id}
+                      isCurrentSong={state.currentSongId === id}
+                      visible={playVisibleId === id}
+                    />
 
                     <span style={{ marginRight: 10 }} />
 
