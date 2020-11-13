@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useContext } from 'react'
+import React, { useContext, useCallback } from 'react'
 import { css, jsx } from '@emotion/core'
 import { StoreContext } from './index'
 
@@ -7,9 +7,13 @@ const Playbar = () => {
   const { state, dispatch } = useContext(StoreContext)
   const song = state.media[state.currentSongId]
 
-  const setVolume = e => {
-    dispatch({ type: 'SET_VOLUME', volume: e.target.value })
+  const playOrPause = () => {
+    state.playing ? dispatch({ type: 'PAUSE' }) : dispatch({ type: 'PLAY' })
   }
+
+  const setVolume = useCallback(e => {
+    dispatch({ type: 'SET_VOLUME', volume: e.target.value })
+  })
 
   return (
     <div className="Playbar" css={CSS}>
@@ -25,14 +29,7 @@ const Playbar = () => {
         )}
       </div>
 
-      <div
-        className="play-pause-circle"
-        onClick={() => {
-          state.playing
-            ? dispatch({ type: 'PAUSE' })
-            : dispatch({ type: 'PLAY' })
-        }}
-      >
+      <div className="play-pause-circle" onClick={playOrPause}>
         <i
           className={`fa fa-${state.playing ? 'pause' : 'play'}`}
           style={{ transform: state.playing ? '' : 'translateX(1.5px)' }}
@@ -41,6 +38,12 @@ const Playbar = () => {
 
       <div>
         <i className="fa fa-volume-up" />
+
+        <div>
+          {state.duration}
+          <br />
+          0:{Math.floor(state.currentTime)}
+        </div>
 
         <input
           type="range"

@@ -1,7 +1,8 @@
+/* eslint-disable prettier/prettier */
 /** @jsx jsx */
 import React, { createContext, useEffect, useReducer, useRef } from 'react'
 import { css, jsx } from '@emotion/core'
-import { initialState, reducer } from './reducers'
+import { initialState, reducer } from '../reducers'
 
 import Topbar from './Topbar'
 import Sidebar from './Sidebar'
@@ -10,30 +11,23 @@ import Playbar from './Playbar'
 
 export const StoreContext = createContext(null)
 
-const audioContext = new AudioContext()
-const gainNode = audioContext.createGain()
-
 const MusicPlayer = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
+
   const audioRef = useRef()
 
   useEffect(() => {
-    const source = audioContext.createMediaElementSource(audioRef.current)
-    source.connect(gainNode).connect(audioContext.destination)
-  }, [])
+    if (state.playing) {
+      audioRef.current.load()
+      audioRef.current.play()
+    } else audioRef.current.pause()
+  }, [state.playing, state.currentSongId])
 
   useEffect(() => {
-    if (state.playing) audioRef.current.play()
-  }, [state.playing])
-
-  useEffect(() => {
-    gainNode.gain.setValueAtTime(state.volume, audioContext.currentTime)
+    audioRef.current.volume = state.volume
   }, [state.volume])
 
   const song = state.media[state.currentSongId]
-
-  const src =
-    song && song.title ? `./media/${song.title} - ${song.artist}.mp3` : ''
 
   return (
     <StoreContext.Provider value={{ state, dispatch }}>
@@ -43,7 +37,23 @@ const MusicPlayer = () => {
         <Content />
         <Playbar />
 
-        <audio ref={audioRef} src={src} />
+        <audio
+          ref={audioRef}
+          src={
+            song && song.title
+              ? `./media/${song.title} - ${song.artist}.mp3`
+              : ''
+          }
+          onLoadedMetadata={() =>
+            dispatch({
+              type: 'SET_DURATION',
+              duration: audioRef.current.duration
+            })
+          }
+          onTimeUpdate={e =>
+            dispatch({ type: 'SET_CURRENT_TIME', time: e.target.currentTime })
+          }
+        />
       </div>
     </StoreContext.Provider>
   )

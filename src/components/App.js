@@ -1,6 +1,6 @@
 import React from 'react'
 import { Global, css, jsx } from '@emotion/core'
-import MusicPlayer from './MusicPlayer'
+import MusicPlayer from './index'
 
 /**
  * @function App

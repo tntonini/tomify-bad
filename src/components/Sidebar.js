@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/core'
 import { StoreContext } from './index'
 import Modal from './Modal'
 import Toast from './Toast'
-import logo from '../../img/spotify-white.png'
+import logo from '../img/spotify-white.png'
 
 const Sidebar = () => {
   const [sidebarState, setState] = useState({
@@ -26,7 +26,7 @@ const Sidebar = () => {
     setState({
       ...sidebarState,
       modal: false,
-      toast: 'Your playlist was created successfully!'
+      toast: 'Playlist was created successfully!'
     })
   }
 
