@@ -2,7 +2,7 @@
 import React from 'react'
 import { css, jsx } from '@emotion/core'
 
-const Topbar = ({ children }) => (
+const Topbar = () => (
   <div
     className="Topbar"
     css={css`
@@ -14,9 +14,7 @@ const Topbar = ({ children }) => (
       width: calc(100% - 200px);
       padding: 20px;
     `}
-  >
-    {children}
-  </div>
+  ></div>
 )
 
 export default Topbar

@@ -43,9 +43,7 @@ const Sidebar = () => {
         <li
           key={list}
           className={list === state.currentPlaylist ? 'active' : ''}
-          onClick={() => {
-            dispatch({ type: 'SET_PLAYLIST', playlist: list })
-          }}
+          onClick={() => dispatch({ type: 'SET_PLAYLIST', playlist: list })}
         >
           {list}
         </li>
@@ -67,7 +65,9 @@ const Sidebar = () => {
               ref={playlistRef}
               required
             />
+
             <br />
+
             <button type="submit">Create</button>
           </div>
         </form>
@@ -75,9 +75,7 @@ const Sidebar = () => {
 
       <Toast
         toast={sidebarState.toast}
-        close={() => {
-          setState({ ...sidebarState, toast: '' })
-        }}
+        close={() => setState({ ...sidebarState, toast: '' })}
       />
     </ul>
   )
