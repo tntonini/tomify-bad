@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/core'
 import { StoreContext } from './index'
 import Modal from './Modal'
 import Toast from './Toast'
-import logo from '../img/spotify-white.png'
+import logo from '../img/tomify.jpg'
 
 const Sidebar = () => {
   const [sidebarState, setState] = useState({
